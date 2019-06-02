@@ -1,0 +1,41 @@
+{
+  "project_info": {
+    "project_number": "218600058588",
+    "firebase_url": "https://santoral-fc828.firebaseio.com",
+    "project_id": "santoral-fc828",
+    "storage_bucket": "santoral-fc828.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218600058588:android:f391a8a8d53c7c7c",
+        "android_client_info": {
+          "package_name": "es.kix2902.santoral"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218600058588-ehmkabmse8akrkkuq3c93ocedurjbmj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsobHFJM0-jBhRgddlYSBjqzAXq8L1TUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218600058588-6sqelog13vrb6tar5a3nvdanqo2fgsbh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-0389928939556596~4611474198"
+    }
+  ],
+  "configuration_version": "1"
+}
