@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSaints"
@@ -21,7 +21,7 @@
         android:id="@+id/ad_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:adUnitId="@string/admob_app_id"
+        app:adUnitId="@string/admob_adunit_id"
         app:adSize="SMART_BANNER"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

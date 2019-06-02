@@ -1,4 +1,4 @@
-package es.kix2902.santoral
+package es.kix2902.santoral.activities
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import es.kix2902.santoral.R
 
 class MainActivity : AppCompatActivity() {
 
