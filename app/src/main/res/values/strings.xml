@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Santoral</string>
+
+    <string name="error_api">Error loading saints from server</string>
 </resources>
