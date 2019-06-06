@@ -12,7 +12,8 @@ class MainPresenter(private val view: MainActivity) {
 
     fun loadDay() {
         repository.getDay(calendar, onResult = { saints ->
-
+            val sortedSaints = saints.toMutableList().sortedBy { it.name }.sortedByDescending { it.important }
+            view.showSaints(sortedSaints)
         }, onError = { cause ->
             view.showMessage(cause)
         })

@@ -1,11 +1,13 @@
 package es.kix2902.santoral.activities
 
+import Model
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import es.kix2902.santoral.R
+import es.kix2902.santoral.adapters.SaintsAdapter
 import es.kix2902.santoral.presenters.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -27,6 +29,11 @@ class MainActivity : AppCompatActivity() {
         adView.loadAd(adRequest)
 
         presenter.loadDay()
+    }
+
+    public fun showSaints(saints: List<Model.ApiResponse>) {
+        val adapter = SaintsAdapter(saints, this)
+        recyclerSaints.adapter = adapter
     }
 
     public fun showMessage(cause: Int) {
