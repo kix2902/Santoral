@@ -3,6 +3,7 @@ package es.kix2902.santoral.data
 import Model
 import es.kix2902.santoral.R
 import es.kix2902.santoral.data.threads.DefaultExecutorSupplier
+import es.kix2902.santoral.pad
 import java.util.*
 
 object NetworkRepository {
@@ -13,7 +14,7 @@ object NetworkRepository {
 
     fun getDay(calendar: Calendar, onResult: (List<Model.ApiResponse>) -> Unit, onError: (Int) -> Unit) {
         executor.forBackgroundTasks().execute {
-            val month = calendar.get(Calendar.MONTH)
+            val month = calendar.get(Calendar.MONTH) + 1
             val date = calendar.get(Calendar.DATE)
 
             val locale: String
@@ -23,7 +24,7 @@ object NetworkRepository {
                 locale = "en_US"
             }
 
-            val response = santopediaApi.getDay(month, date, locale).execute()
+            val response = santopediaApi.getDay(month.pad, date.pad, locale).execute()
 
             executor.forMainThreadTasks().execute {
                 if (response.isSuccessful) {
