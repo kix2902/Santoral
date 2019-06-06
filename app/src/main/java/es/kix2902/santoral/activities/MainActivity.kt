@@ -19,11 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        supportActionBar?.run {
-            setDisplayShowHomeEnabled(true)
-            setIcon(R.mipmap.ic_launcher)
-        }
-
         MobileAds.initialize(this, getString(R.string.admob_app_id))
 
         val adRequest = AdRequest.Builder()
