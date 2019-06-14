@@ -11,11 +11,23 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import es.kix2902.santoral.R
 import es.kix2902.santoral.helpers.CircleTransform
-import es.kix2902.santoral.px
 import kotlinx.android.synthetic.main.saints_row.view.*
 
-class SaintsAdapter(val items: List<Model.ApiResponse>, val context: Context) :
-    RecyclerView.Adapter<SaintsAdapter.ViewHolder>() {
+class SaintsAdapter(
+    private val items: MutableList<Model.ApiResponse>,
+    val context: Context,
+    val listener: (Model.ApiResponse) -> Unit
+) : RecyclerView.Adapter<SaintsAdapter.ViewHolder>() {
+
+    fun clearItems() {
+        items.clear()
+        notifyDataSetChanged()
+    }
+
+    fun addItems(items: List<Model.ApiResponse>) {
+        this.items.addAll(items)
+        notifyDataSetChanged()
+    }
 
     override fun getItemCount(): Int {
         return items.size
@@ -37,7 +49,7 @@ class SaintsAdapter(val items: List<Model.ApiResponse>, val context: Context) :
         item.foto?.let {
             Picasso.get()
                 .load(it)
-                .resize(64.px, 64.px)
+                .fit()
                 .centerInside()
                 .error(R.mipmap.ic_launcher)
                 .transform(CircleTransform())
@@ -52,6 +64,7 @@ class SaintsAdapter(val items: List<Model.ApiResponse>, val context: Context) :
                     }
                 })
         }
+
         if (item.important == 1) {
             holder.saintName.setTypeface(null, Typeface.BOLD)
             holder.personName.setTypeface(null, Typeface.BOLD)
@@ -59,6 +72,8 @@ class SaintsAdapter(val items: List<Model.ApiResponse>, val context: Context) :
             holder.saintName.setTypeface(null, Typeface.NORMAL)
             holder.personName.setTypeface(null, Typeface.NORMAL)
         }
+
+        holder.itemView.setOnClickListener { listener(item) }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -68,7 +83,7 @@ class SaintsAdapter(val items: List<Model.ApiResponse>, val context: Context) :
     }
 
     companion object {
-        val ALPHA_SAINT = 255
-        val ALPHA_DEFAULT = 150
+        const val ALPHA_SAINT = 255
+        const val ALPHA_DEFAULT = 150
     }
 }

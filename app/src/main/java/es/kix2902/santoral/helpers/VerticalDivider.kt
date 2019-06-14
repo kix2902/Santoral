@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.view.View
-import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import es.kix2902.santoral.px
 
@@ -44,7 +43,7 @@ internal class VerticalDivider(context: Context) : RecyclerView.ItemDecoration()
         for (i in 0 until childCount) {
             val child = parent.getChildAt(i)
             parent.getDecoratedBoundsWithMargins(child, mBounds)
-            val bottom = mBounds.bottom + Math.round(ViewCompat.getTranslationY(child))
+            val bottom = mBounds.bottom + Math.round(child.translationY)
             val top = bottom - mDivider!!.intrinsicHeight
             mDivider!!.setBounds(left, top, right, bottom)
             mDivider!!.draw(canvas)
