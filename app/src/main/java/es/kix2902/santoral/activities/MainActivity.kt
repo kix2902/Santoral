@@ -4,7 +4,6 @@ import Model
 import android.gesture.Gesture
 import android.gesture.GestureLibraries
 import android.gesture.GestureOverlayView
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
