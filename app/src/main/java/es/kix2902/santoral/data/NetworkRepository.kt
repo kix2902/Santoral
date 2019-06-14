@@ -17,18 +17,25 @@ object NetworkRepository {
             val month = calendar.get(Calendar.MONTH) + 1
             val date = calendar.get(Calendar.DATE)
 
-            val locale: String
-            if (Locale.getDefault().language.equals("es", true)) {
-                locale = "es_ES"
+            val locale = if (Locale.getDefault().language.equals("es", true)) {
+                "es_ES"
             } else {
-                locale = "en_US"
+                "en_US"
             }
 
             val response = santopediaApi.getDay(month.pad, date.pad, locale).execute()
 
+            var list: MutableList<Model.ApiResponse> = mutableListOf()
+            if (locale.equals("en_US")) {
+                response.body()?.let {
+                    list = it.toMutableList()
+                    list.forEach { it.url = fixUrl(it.url) }
+                }
+            }
+
             executor.forMainThreadTasks().execute {
                 if (response.isSuccessful) {
-                    onResult(response.body()!!)
+                    onResult(list)
                 } else {
                     onError(R.string.error_api)
                 }
@@ -38,22 +45,33 @@ object NetworkRepository {
 
     fun getName(name: String, onResult: (List<Model.ApiResponse>) -> Unit, onError: (Int) -> Unit) {
         executor.forBackgroundTasks().execute {
-            val locale: String
-            if (Locale.getDefault().language.equals("es", true)) {
-                locale = "es_ES"
+            val locale = if (Locale.getDefault().language.equals("es", true)) {
+                "es_ES"
             } else {
-                locale = "en_US"
+                "en_US"
             }
 
             val response = santopediaApi.getName(name, locale).execute()
 
+            var list: MutableList<Model.ApiResponse> = mutableListOf()
+            if (locale.equals("en_US")) {
+                response.body()?.let {
+                    list = it.toMutableList()
+                    list.forEach { it.url = fixUrl(it.url) }
+                }
+            }
+
             executor.forMainThreadTasks().execute {
                 if (response.isSuccessful) {
-                    onResult(response.body()!!)
+                    onResult(list)
                 } else {
                     onError(R.string.error_api)
                 }
             }
         }
+    }
+
+    private fun fixUrl(url: String): String {
+        return url.replace("www", "en").replace("/santos/", "/saint/")
     }
 }

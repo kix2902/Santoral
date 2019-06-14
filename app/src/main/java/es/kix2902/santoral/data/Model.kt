@@ -5,7 +5,7 @@ object Model {
         @SerializedName("id") val id: Int,
         @SerializedName("name") val name: String,
         @SerializedName("fullname") val fullname: String,
-        @SerializedName("url") val url: String,
+        @SerializedName("url") var url: String,
         @SerializedName("foto") val foto: String?,
         @SerializedName("important") val important: Int,
         @SerializedName("feast") val feast: String?

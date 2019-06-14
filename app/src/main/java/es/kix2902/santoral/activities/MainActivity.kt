@@ -4,6 +4,7 @@ import Model
 import android.gesture.Gesture
 import android.gesture.GestureLibraries
 import android.gesture.GestureOverlayView
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -38,8 +39,8 @@ class MainActivity : AppCompatActivity() {
         adapter = SaintsAdapter(ArrayList(), this) { item: Model.ApiResponse ->
             val builder = CustomTabsIntent.Builder()
             builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-            val customTabsIntent = builder.build()
-            customTabsIntent.launchUrl(this, Uri.parse(item.url))
+
+            builder.build().launchUrl(this, Uri.parse(item.url))
         }
 
         recyclerSaints.addItemDecoration(VerticalDivider(this))
