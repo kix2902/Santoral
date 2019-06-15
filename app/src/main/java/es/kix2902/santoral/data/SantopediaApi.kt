@@ -1,6 +1,5 @@
 package es.kix2902.santoral.data
 
-import Model
 import es.kix2902.santoral.BuildConfig
 import es.kix2902.santoral.SANTOPEDIA_API_APP_ID
 import es.kix2902.santoral.SANTOPEDIA_API_APP_KEY
@@ -39,9 +38,9 @@ interface SantopediaApi {
     }
 
     @GET("days/{month}-{date}?app_id=$SANTOPEDIA_API_APP_ID&app_key=$SANTOPEDIA_API_APP_KEY")
-    fun getDay(@Path("month") month: String, @Path("date") date: String, @Query("locale") locale: String): Call<List<Model.ApiResponse>>
+    fun getDay(@Path("month") month: String, @Path("date") date: String, @Query("locale") locale: String): Call<List<Model.Saint>>
 
     @GET("names/{name}?app_id=$SANTOPEDIA_API_APP_ID&app_key=$SANTOPEDIA_API_APP_KEY")
-    fun getName(@Path("name") name: String, @Query("locale") locale: String): Call<List<Model.ApiResponse>>
+    fun getName(@Path("name") name: String, @Query("locale") locale: String): Call<List<Model.Saint>>
 
 }

@@ -7,7 +7,7 @@ import java.util.*
 
 class MainPresenter(private val view: MainActivity) {
 
-    private val repository: DataRepository = DataRepository
+    private val repository = DataRepository.getInstance(view)
 
     private var calendar = Calendar.getInstance()
 

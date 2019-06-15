@@ -1,22 +1,24 @@
 package es.kix2902.santoral.adapters
 
-import Model
 import android.content.Context
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import es.kix2902.santoral.R
+import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.helpers.CircleTransform
 import kotlinx.android.synthetic.main.saints_row.view.*
 
 class SaintsAdapter(
-    private val items: MutableList<Model.ApiResponse>,
-    val context: Context,
-    val listener: (Model.ApiResponse) -> Unit
+    private val items: MutableList<Model.Saint>,
+    private val context: Context,
+    val listener: (Model.Saint) -> Unit
 ) : RecyclerView.Adapter<SaintsAdapter.ViewHolder>() {
 
     fun clearItems() {
@@ -24,7 +26,7 @@ class SaintsAdapter(
         notifyDataSetChanged()
     }
 
-    fun addItems(items: List<Model.ApiResponse>) {
+    fun addItems(items: List<Model.Saint>) {
         this.items.addAll(items)
         notifyDataSetChanged()
     }
@@ -77,9 +79,9 @@ class SaintsAdapter(
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val personName = view.person_name
-        val saintName = view.saint_name
-        val saintImage = view.saint_image
+        val personName: TextView = view.person_name
+        val saintName: TextView = view.saint_name
+        val saintImage: ImageView = view.saint_image
     }
 
     companion object {

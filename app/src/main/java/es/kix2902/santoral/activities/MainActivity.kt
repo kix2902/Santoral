@@ -1,9 +1,6 @@
 package es.kix2902.santoral.activities
 
-import Model
-import android.gesture.Gesture
 import android.gesture.GestureLibraries
-import android.gesture.GestureOverlayView
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
@@ -16,14 +13,14 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import es.kix2902.santoral.R
 import es.kix2902.santoral.adapters.SaintsAdapter
+import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.helpers.VerticalDivider
 import es.kix2902.santoral.presenters.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
-    private val presenter = MainPresenter(this)
+    private lateinit var presenter: MainPresenter
 
     private lateinit var adapter: SaintsAdapter
 
@@ -35,7 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        adapter = SaintsAdapter(ArrayList(), this) { item: Model.ApiResponse ->
+        presenter = MainPresenter(this)
+
+        adapter = SaintsAdapter(ArrayList(), this) { item: Model.Saint ->
             val builder = CustomTabsIntent.Builder()
             builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
 
@@ -46,21 +45,19 @@ class MainActivity : AppCompatActivity() {
         recyclerSaints.adapter = adapter
 
         gestureLibrary.load()
-        gestureView.addOnGesturePerformedListener(object : GestureOverlayView.OnGesturePerformedListener {
-            override fun onGesturePerformed(overlay: GestureOverlayView?, gesture: Gesture?) {
-                val predictions = gestureLibrary.recognize(gesture)
+        gestureView.addOnGesturePerformedListener { _, gesture ->
+            val predictions = gestureLibrary.recognize(gesture)
 
-                if (predictions.size > 0 && predictions[0].score > 1.0) {
-                    val result = predictions[0].name
+            if (predictions.size > 0 && predictions[0].score > 1.0) {
+                val result = predictions[0].name
 
-                    if ("left".equals(result, ignoreCase = true)) {
-                        presenter.nextDay()
-                    } else if ("right".equals(result, ignoreCase = true)) {
-                        presenter.previousDay()
-                    }
+                if ("left".equals(result, ignoreCase = true)) {
+                    presenter.nextDay()
+                } else if ("right".equals(result, ignoreCase = true)) {
+                    presenter.previousDay()
                 }
             }
-        })
+        }
 
         MobileAds.initialize(this, getString(R.string.admob_app_id))
 
@@ -90,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         loadingBar.visibility = View.GONE
     }
 
-    fun showSaints(saints: List<Model.ApiResponse>) {
+    fun showSaints(saints: List<Model.Saint>) {
         adapter.addItems(saints)
     }
 

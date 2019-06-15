@@ -1,6 +1,5 @@
 package es.kix2902.santoral.data
 
-import Model
 import es.kix2902.santoral.R
 import es.kix2902.santoral.data.threads.DefaultExecutorSupplier
 import es.kix2902.santoral.pad
@@ -12,38 +11,39 @@ object NetworkRepository {
 
     private val santopediaApi by lazy { SantopediaApi.create() }
 
-    fun getDay(calendar: Calendar, onResult: (List<Model.ApiResponse>) -> Unit, onError: (Int) -> Unit) {
+    fun getDay(month: Int, day: Int, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
         executor.forBackgroundTasks().execute {
-            val month = calendar.get(Calendar.MONTH) + 1
-            val date = calendar.get(Calendar.DATE)
-
             val locale = if (Locale.getDefault().language.equals("es", true)) {
                 "es_ES"
             } else {
                 "en_US"
             }
 
-            val response = santopediaApi.getDay(month.pad, date.pad, locale).execute()
+            val response = santopediaApi.getDay(month.pad, day.pad, locale).execute()
 
-            var list: MutableList<Model.ApiResponse> = mutableListOf()
-            if (locale.equals("en_US")) {
-                response.body()?.let {
-                    list = it.toMutableList()
-                    list.forEach { it.url = fixUrl(it.url) }
+            if (response.isSuccessful) {
+                val list = response.body()?.toMutableList()
+
+                list?.forEach { saint ->
+                    saint.feast = "${month.pad}-${day.pad}"
+                    if (locale.equals("en_US")) {
+                        saint.url = fixUrl(saint.url)
+                    }
                 }
-            }
 
-            executor.forMainThreadTasks().execute {
-                if (response.isSuccessful) {
-                    onResult(list)
-                } else {
+                executor.forMainThreadTasks().execute {
+                    onResult(list!!)
+                }
+
+            } else {
+                executor.forMainThreadTasks().execute {
                     onError(R.string.error_api)
                 }
             }
         }
     }
 
-    fun getName(name: String, onResult: (List<Model.ApiResponse>) -> Unit, onError: (Int) -> Unit) {
+    fun getName(name: String, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
         executor.forBackgroundTasks().execute {
             val locale = if (Locale.getDefault().language.equals("es", true)) {
                 "es_ES"
@@ -53,18 +53,20 @@ object NetworkRepository {
 
             val response = santopediaApi.getName(name, locale).execute()
 
-            var list: MutableList<Model.ApiResponse> = mutableListOf()
-            if (locale.equals("en_US")) {
-                response.body()?.let {
-                    list = it.toMutableList()
-                    list.forEach { it.url = fixUrl(it.url) }
-                }
-            }
+            if (response.isSuccessful) {
+                val list = response.body()?.toMutableList()
 
-            executor.forMainThreadTasks().execute {
-                if (response.isSuccessful) {
-                    onResult(list)
-                } else {
+                list?.forEach { saint ->
+                    if (locale.equals("en_US")) {
+                        saint.url = fixUrl(saint.url)
+                    }
+                }
+
+                executor.forMainThreadTasks().execute {
+                    onResult(list!!)
+                }
+            } else {
+                executor.forMainThreadTasks().execute {
                     onError(R.string.error_api)
                 }
             }
