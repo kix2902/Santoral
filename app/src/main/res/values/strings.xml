@@ -3,4 +3,5 @@
 
     <string name="error_api">Error loading saints from server</string>
     <string name="photo">photo</string>
+    <string name="select_date">Select date</string>
 </resources>

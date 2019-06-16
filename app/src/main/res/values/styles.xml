@@ -6,4 +6,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="mdtp_ActionButton.Text" parent="Widget.MaterialComponents.Button.TextButton.Dialog" />
+
 </resources>

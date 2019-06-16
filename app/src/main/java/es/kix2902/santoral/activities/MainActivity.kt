@@ -3,6 +3,7 @@ package es.kix2902.santoral.activities
 import android.gesture.GestureLibraries
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -11,12 +12,15 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import es.kix2902.santoral.R
 import es.kix2902.santoral.adapters.SaintsAdapter
 import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.helpers.VerticalDivider
 import es.kix2902.santoral.presenters.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -69,13 +73,35 @@ class MainActivity : AppCompatActivity() {
         presenter.loadSaints()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_activity, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        android.R.id.home -> {
             presenter.today()
-            return true
+            true
         }
 
-        return super.onOptionsItemSelected(item)
+        R.id.select_date -> {
+            val calendar = presenter.getCalendar()
+            val dpd = DatePickerDialog.newInstance(
+                { _, year, month, day ->
+                    presenter.setDate(year, month, day)
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            dpd.dismissOnPause(true)
+            dpd.show(supportFragmentManager, "DatePickerDialog")
+            true
+        }
+
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     fun showLoading() {

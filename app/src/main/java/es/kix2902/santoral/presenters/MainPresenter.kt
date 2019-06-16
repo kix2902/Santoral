@@ -41,6 +41,15 @@ class MainPresenter(private val view: MainActivity) {
         moveDay(-1)
     }
 
+    fun getCalendar(): Calendar {
+        return calendar
+    }
+
+    fun setDate(year: Int, month: Int, day: Int) {
+        calendar.set(year, month, day)
+        loadSaints()
+    }
+
     private fun moveDay(quantity: Int) {
         calendar.add(Calendar.DAY_OF_MONTH, quantity)
         loadSaints()
