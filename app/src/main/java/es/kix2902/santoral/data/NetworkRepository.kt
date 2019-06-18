@@ -22,9 +22,13 @@ object NetworkRepository {
             val response = santopediaApi.getDay(month.pad, day.pad, locale).execute()
 
             if (response.isSuccessful) {
-                val list = response.body()?.toMutableList()
+                val list = response.body()!!
+                    .toMutableList()
+                    .sortedBy { it.name }
+                    .sortedByDescending { it.important }
 
-                list?.forEach { saint ->
+
+                list.forEach { saint ->
                     saint.feast = "${month.pad}-${day.pad}"
                     if (locale.equals("en_US")) {
                         saint.url = fixUrl(saint.url)
@@ -32,7 +36,7 @@ object NetworkRepository {
                 }
 
                 executor.forMainThreadTasks().execute {
-                    onResult(list!!)
+                    onResult(list)
                 }
 
             } else {
@@ -54,17 +58,21 @@ object NetworkRepository {
             val response = santopediaApi.getName(name, locale).execute()
 
             if (response.isSuccessful) {
-                val list = response.body()?.toMutableList()
+                val list = response.body()!!
+                    .toMutableList()
+                    .sortedBy { it.name }
+                    .sortedByDescending { it.important }
 
-                list?.forEach { saint ->
+                list.forEach { saint ->
                     if (locale.equals("en_US")) {
                         saint.url = fixUrl(saint.url)
                     }
                 }
 
                 executor.forMainThreadTasks().execute {
-                    onResult(list!!)
+                    onResult(list)
                 }
+
             } else {
                 executor.forMainThreadTasks().execute {
                     onError(R.string.error_api)

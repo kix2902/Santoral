@@ -7,4 +7,10 @@
         android:icon="@drawable/ic_calendar"
         android:title="@string/select_date"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/search_name"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search_name"
+        app:showAsAction="ifRoom" />
 </menu>

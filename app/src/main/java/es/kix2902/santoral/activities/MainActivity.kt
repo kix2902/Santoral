@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
@@ -21,6 +24,7 @@ import es.kix2902.santoral.presenters.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -99,6 +103,25 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        R.id.search_name -> {
+            val input = EditText(this@MainActivity)
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            input.layoutParams = params
+
+            AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_search_name_title)
+                .setView(input)
+                .setPositiveButton(R.string.dialog_search_positive) { _, _ ->
+                    presenter.searchName(input.text.toString())
+                }
+                .setNegativeButton(R.string.dialog_search_negative, null)
+                .show()
+            true
+        }
+
         else -> {
             super.onOptionsItemSelected(item)
         }
@@ -106,7 +129,6 @@ class MainActivity : AppCompatActivity() {
 
     fun showLoading() {
         loadingBar.visibility = View.VISIBLE
-        adapter.clearItems()
     }
 
     fun hideLoading() {
@@ -114,6 +136,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showSaints(saints: List<Model.Saint>) {
+        adapter.clearItems()
         adapter.addItems(saints)
     }
 
@@ -131,6 +154,13 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.setHomeButtonEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
+    }
+
+    fun showNameFeastResult(text: String) {
+        AlertDialog.Builder(this)
+            .setMessage(text)
+            .setPositiveButton(R.string.close, null)
+            .show()
     }
 
 }
