@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="test_device">3520FAF81846761994B2E6BA1F5B2571</string>
-    <string name="admob_app_id">ca-app-pub-0389928939556596~4611474198</string>
-    <string name="admob_adunit_id">ca-app-pub-0389928939556596/2995140193</string>
+    <string name="test_device" translatable="false">3520FAF81846761994B2E6BA1F5B2571</string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-0389928939556596~4611474198</string>
+    <string name="admob_adunit_id" translatable="false">ca-app-pub-0389928939556596/2995140193</string>
 </resources>
