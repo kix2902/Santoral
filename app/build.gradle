@@ -11,8 +11,8 @@ android {
         applicationId "es.kix2902.santoral"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 51
-        versionName "5.0 beta 2"
+        versionCode 52
+        versionName "5.0 beta 3"
         resConfigs "en", "es"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         kapt {
