@@ -55,27 +55,33 @@ object NetworkRepository {
                 "en_US"
             }
 
-            val response = santopediaApi.getName(name, locale).execute()
+            try {
+                val response = santopediaApi.getName(name, locale).execute()
 
-            if (response.isSuccessful) {
-                val list = response.body()!!
-                    .toMutableList()
-                    .sortedBy { it.name }
-                    .sortedByDescending { it.important }
+                if (response.isSuccessful) {
+                    val list = response.body()!!
+                        .toMutableList()
+                        .sortedBy { it.name }
+                        .sortedByDescending { it.important }
 
-                list.forEach { saint ->
-                    if (locale.equals("en_US")) {
-                        saint.url = fixUrl(saint.url)
+                    list.forEach { saint ->
+                        if (locale.equals("en_US")) {
+                            saint.url = fixUrl(saint.url)
+                        }
+                    }
+
+                    executor.forMainThreadTasks().execute {
+                        onResult(list)
+                    }
+
+                } else {
+                    executor.forMainThreadTasks().execute {
+                        onError(R.string.error_api)
                     }
                 }
-
+            } catch (ex: IllegalStateException) {
                 executor.forMainThreadTasks().execute {
-                    onResult(list)
-                }
-
-            } else {
-                executor.forMainThreadTasks().execute {
-                    onError(R.string.error_api)
+                    onResult(listOf())
                 }
             }
         }

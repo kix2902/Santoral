@@ -21,10 +21,10 @@ import es.kix2902.santoral.adapters.SaintsAdapter
 import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.helpers.VerticalDivider
 import es.kix2902.santoral.presenters.MainPresenter
+import es.kix2902.santoral.px
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -104,16 +104,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         R.id.search_name -> {
-            val input = EditText(this@MainActivity)
+            val container = LinearLayout(this@MainActivity);
+            container.orientation = LinearLayout.VERTICAL;
+
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
+            params.setMargins(16.px, 0, 16.px, 0)
+
+            val input = EditText(this@MainActivity)
             input.layoutParams = params
+            input.setLines(1)
+            input.maxLines = 1
+
+            container.addView(input, params);
 
             AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_search_name_title)
-                .setView(input)
+                .setView(container)
                 .setPositiveButton(R.string.dialog_search_positive) { _, _ ->
                     presenter.searchName(input.text.toString())
                 }
