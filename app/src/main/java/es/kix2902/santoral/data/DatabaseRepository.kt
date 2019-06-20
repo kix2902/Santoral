@@ -1,7 +1,6 @@
 package es.kix2902.santoral.data
 
 import android.content.Context
-import androidx.room.Room
 import es.kix2902.santoral.data.database.AppDatabase
 import es.kix2902.santoral.data.threads.DefaultExecutorSupplier
 import es.kix2902.santoral.helpers.SingletonHolder
@@ -13,22 +12,19 @@ class DatabaseRepository private constructor(context: Context) {
     companion object : SingletonHolder<DatabaseRepository, Context>(::DatabaseRepository)
 
     private val executor = DefaultExecutorSupplier
-    private val db = Room.databaseBuilder(
-        context,
-        AppDatabase::class.java,
-        "santoral.db"
-    ).build()
+
+    private val db = AppDatabase.getInstance(context)
 
     fun insertDateSaved(month: Int, day: Int) {
         executor.forBackgroundTasks().execute {
-            val info = Model.QueryInfo(month, day, Date())
+            val info = Model.QueryInfo(month, day, Locale.getDefault().language, Date())
             db.infoDao().insert(info)
         }
     }
 
     fun getDateSavedForDay(month: Int, day: Int, onResult: (Date?) -> Unit) {
         executor.forBackgroundTasks().execute {
-            val data = db.infoDao().getQueryInfoForDate(month, day)
+            val data = db.infoDao().getQueryInfoForDate(month, day, Locale.getDefault().language)
 
             val dateSaved = when {
                 data.isNotEmpty() -> data[0].dateSaved
@@ -48,7 +44,13 @@ class DatabaseRepository private constructor(context: Context) {
 
     fun getSaintsForDay(month: Int, day: Int, onResult: (List<Model.Saint>) -> Unit) {
         executor.forBackgroundTasks().execute {
-            val list = db.saintsDao().getAllSaintsForDate("${month.pad}-${day.pad}")
+            val data = db.saintsDao().getAllSaintsForDate("${month.pad}-${day.pad}")
+
+            val list = data
+                .toMutableList()
+                .sortedBy { it.name }
+                .sortedByDescending { it.important }
+
             executor.forMainThreadTasks().execute {
                 onResult(list)
             }

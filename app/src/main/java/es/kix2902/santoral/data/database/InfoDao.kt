@@ -6,6 +6,6 @@ import es.kix2902.santoral.data.Model
 
 @Dao
 interface InfoDao : BaseDao<Model.QueryInfo> {
-    @Query("SELECT * FROM queryinfo WHERE month=:month AND day=:day")
-    fun getQueryInfoForDate(month: Int, day: Int): List<Model.QueryInfo>
+    @Query("SELECT * FROM queryinfo WHERE month=:month AND day=:day AND language=:language")
+    fun getQueryInfoForDate(month: Int, day: Int, language: String): List<Model.QueryInfo>
 }
