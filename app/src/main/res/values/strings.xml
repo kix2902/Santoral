@@ -1,14 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Santoral</string>
+    <string name="app_name">Santoral</string>
 
-    <string name="error_api">Error loading saints from server</string>
-    <string name="photo">photo</string>
-    <string name="select_date">Select date</string>
-    <string name="search_name">Search by name</string>
-    <string name="dialog_search_name_title">Name to search</string>
-    <string name="dialog_search_positive">Search</string>
-    <string name="dialog_search_negative">Cancel</string>
-    <string name="feast_for_name">Feast date for %1$s is %2$s, %3$s</string>
-    <string name="no_date_for_name">No date found for %1$s</string>
-    <string name="close">Close</string>
+    <string name="close">Cerrar</string>
+    <string name="dialog_search_name_title">Nombre a buscar</string>
+    <string name="dialog_search_negative">Cancelar</string>
+    <string name="dialog_search_positive">Buscar</string>
+    <string name="error_api">Error al descargar los santos desde el servidor</string>
+    <string name="feast_for_name">El santo de %1$s es el %3$s de %2$s</string>
+    <string name="photo">foto</string>
+    <string name="search_name">Buscar por nombre</string>
+    <string name="select_date">Seleccionar fecha</string>
+    <string name="no_date_for_name">No hemos encontrado la fecha del santo de %1$s</string>
 </resources>

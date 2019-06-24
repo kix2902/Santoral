@@ -17,14 +17,14 @@ class DatabaseRepository private constructor(context: Context) {
 
     fun insertDateSaved(month: Int, day: Int) {
         executor.forBackgroundTasks().execute {
-            val info = Model.QueryInfo(month, day, Locale.getDefault().language, Date())
+            val info = Model.QueryInfo(month, day, Date())
             db.infoDao().insert(info)
         }
     }
 
     fun getDateSavedForDay(month: Int, day: Int, onResult: (Date?) -> Unit) {
         executor.forBackgroundTasks().execute {
-            val data = db.infoDao().getQueryInfoForDate(month, day, Locale.getDefault().language)
+            val data = db.infoDao().getQueryInfoForDate(month, day)
 
             val dateSaved = when {
                 data.isNotEmpty() -> data[0].dateSaved
@@ -46,13 +46,8 @@ class DatabaseRepository private constructor(context: Context) {
         executor.forBackgroundTasks().execute {
             val data = db.saintsDao().getAllSaintsForDate("${month.pad}-${day.pad}")
 
-            val list = data
-                .toMutableList()
-                .sortedBy { it.name }
-                .sortedByDescending { it.important }
-
             executor.forMainThreadTasks().execute {
-                onResult(list)
+                onResult(data)
             }
         }
     }

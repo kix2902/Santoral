@@ -21,7 +21,6 @@ object Model {
     data class QueryInfo(
         val month: Int,
         val day: Int,
-        val language: String,
         val dateSaved: Date
     )
 }

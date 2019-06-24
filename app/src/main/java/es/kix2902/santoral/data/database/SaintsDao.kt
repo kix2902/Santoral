@@ -5,6 +5,6 @@ import es.kix2902.santoral.data.Model
 
 @Dao
 interface SaintsDao : BaseDao<Model.Saint> {
-    @Query("SELECT * FROM saints WHERE feast=:feast")
+    @Query("SELECT * FROM saints WHERE feast=:feast ORDER BY important DESC, name ASC")
     fun getAllSaintsForDate(feast: String): List<Model.Saint>
 }

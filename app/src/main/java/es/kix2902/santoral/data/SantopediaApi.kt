@@ -38,9 +38,9 @@ interface SantopediaApi {
     }
 
     @GET("days/{month}-{date}?app_id=$SANTOPEDIA_API_APP_ID&app_key=$SANTOPEDIA_API_APP_KEY")
-    fun getDay(@Path("month") month: String, @Path("date") date: String, @Query("locale") locale: String): Call<List<Model.Saint>>
+    fun getDay(@Path("month") month: String, @Path("date") date: String): Call<List<Model.Saint>>
 
     @GET("names/{name}?app_id=$SANTOPEDIA_API_APP_ID&app_key=$SANTOPEDIA_API_APP_KEY")
-    fun getName(@Path("name") name: String, @Query("locale") locale: String): Call<List<Model.Saint>>
+    fun getName(@Path("name") name: String): Call<List<Model.Saint>>
 
 }

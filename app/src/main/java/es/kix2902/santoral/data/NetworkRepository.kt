@@ -13,13 +13,7 @@ object NetworkRepository {
 
     fun getDay(month: Int, day: Int, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
         executor.forBackgroundTasks().execute {
-            val locale = if (Locale.getDefault().language.equals("es", true)) {
-                "es_ES"
-            } else {
-                "en_US"
-            }
-
-            val response = santopediaApi.getDay(month.pad, day.pad, locale).execute()
+            val response = santopediaApi.getDay(month.pad, day.pad).execute()
 
             if (response.isSuccessful) {
                 val list = response.body()!!
@@ -27,12 +21,8 @@ object NetworkRepository {
                     .sortedBy { it.name }
                     .sortedByDescending { it.important }
 
-
                 list.forEach { saint ->
                     saint.feast = "${month.pad}-${day.pad}"
-                    if (locale.equals("en_US")) {
-                        saint.url = fixUrl(saint.url)
-                    }
                 }
 
                 executor.forMainThreadTasks().execute {
@@ -49,26 +39,14 @@ object NetworkRepository {
 
     fun getName(name: String, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
         executor.forBackgroundTasks().execute {
-            val locale = if (Locale.getDefault().language.equals("es", true)) {
-                "es_ES"
-            } else {
-                "en_US"
-            }
-
             try {
-                val response = santopediaApi.getName(name, locale).execute()
+                val response = santopediaApi.getName(name).execute()
 
                 if (response.isSuccessful) {
                     val list = response.body()!!
                         .toMutableList()
                         .sortedBy { it.name }
                         .sortedByDescending { it.important }
-
-                    list.forEach { saint ->
-                        if (locale.equals("en_US")) {
-                            saint.url = fixUrl(saint.url)
-                        }
-                    }
 
                     executor.forMainThreadTasks().execute {
                         onResult(list)
@@ -85,9 +63,5 @@ object NetworkRepository {
                 }
             }
         }
-    }
-
-    private fun fixUrl(url: String): String {
-        return url.replace("www", "en").replace("/santos/", "/saint/")
     }
 }
