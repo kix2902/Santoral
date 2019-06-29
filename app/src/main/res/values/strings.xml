@@ -12,4 +12,5 @@
     <string name="search_name">Buscar por nombre</string>
     <string name="select_date">Seleccionar fecha</string>
     <string name="no_date_for_name">No hemos encontrado la fecha del santo de %1$s</string>
+    <string name="settings">Ajustes</string>
 </resources>
