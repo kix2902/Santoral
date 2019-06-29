@@ -52,7 +52,7 @@ class SaintsAdapter(
             Picasso.get()
                 .load(it)
                 .fit()
-                .centerInside()
+                .centerCrop()
                 .error(R.mipmap.ic_launcher)
                 .transform(CircleTransform())
                 .into(holder.saintImage, object : Callback {
