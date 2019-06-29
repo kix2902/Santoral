@@ -1,5 +1,6 @@
 package es.kix2902.santoral.activities
 
+import android.content.Intent
 import android.gesture.GestureLibraries
 import android.net.Uri
 import android.os.Bundle
@@ -128,6 +129,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 .setNegativeButton(R.string.dialog_search_negative, null)
                 .show()
+            true
+        }
+
+        R.id.settings -> {
+            startActivity(Intent(this, SettingsActivity::class.java))
             true
         }
 
