@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="swipe_date_trace_title">Mostrar trazo en cambio de fecha</string>
+    <string name="swipe_date_trace_summary">Mostrar trazo al avanzar o retroceder un día</string>
+    <string name="theme_mode_title">Tema oscuro</string>
+</resources>

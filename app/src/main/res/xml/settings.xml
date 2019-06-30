@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
         android:defaultValue="true"
-        android:summary="Mostrar trazo al avanzar o retroceder un día"
-        app:key="swipe-date-trace"
-        app:title="Mostrar trazo en cambio de fecha" />
+        android:key="swipe-date-trace"
+        android:summary="@string/swipe_date_trace_summary"
+        android:title="@string/swipe_date_trace_title" />
+
+    <ListPreference
+        android:defaultValue="@string/theme_mode_default"
+        android:entries="@array/theme_entries"
+        android:entryValues="@array/theme_values"
+        android:key="theme-mode"
+        android:summary="%s"
+        android:title="@string/theme_mode_title" />
 </PreferenceScreen>

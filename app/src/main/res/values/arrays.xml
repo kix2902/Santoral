@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
+
+    <string name="never_value" translatable="false">never</string>
+    <string name="never_entry">Nunca</string>
+    <string name="battery_value" translatable="false">battery</string>
+    <string name="battery_entry">Usar solo con batería baja</string>
+    <string name="system_value" translatable="false">system</string>
+    <string name="system_entry">Seguir configuración del sistema</string>
+    <string name="always_value" translatable="false">always</string>
+    <string name="always_entry">Siempre</string>
+
+    <string name="theme_mode_default">@string/never_value</string>
+
+    <string-array name="theme_entries">
+        <item>@string/never_entry</item>
+        <item>@string/battery_entry</item>
+        <item>@string/always_entry</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>@string/never_value</item>
+        <item>@string/battery_value</item>
+        <item>@string/always_value</item>
+    </string-array>
+</resources>

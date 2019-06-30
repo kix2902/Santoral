@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="InconsistentArrays">
+
+    <string name="theme_mode_default">@string/system_value</string>
+
+    <string-array name="theme_entries">
+        <item>@string/never_entry</item>
+        <item>@string/battery_entry</item>
+        <item>@string/system_entry</item>
+        <item>@string/always_entry</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>@string/never_value</item>
+        <item>@string/battery_value</item>
+        <item>@string/system_value</item>
+        <item>@string/always_value</item>
+    </string-array>
+</resources>
