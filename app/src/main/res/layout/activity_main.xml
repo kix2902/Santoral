@@ -43,7 +43,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gestureStrokeWidth="50"
-        android:uncertainGestureColor="@android:color/transparent"
+        android:uncertainGestureColor="@color/transparent"
         app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
