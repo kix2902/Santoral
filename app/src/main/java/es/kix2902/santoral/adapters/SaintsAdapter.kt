@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import es.kix2902.santoral.R
 import es.kix2902.santoral.data.Model
-import es.kix2902.santoral.helpers.CircleTransform
+import es.kix2902.santoral.loadIconUrl
 import kotlinx.android.synthetic.main.saints_row.view.*
 
 class SaintsAdapter(
@@ -46,25 +44,12 @@ class SaintsAdapter(
         holder.personName.text = item.name
         holder.saintName.text = item.fullname
 
-        holder.saintImage.setImageResource(R.mipmap.ic_launcher)
-        holder.saintImage.imageAlpha = ALPHA_DEFAULT
-        item.foto?.let {
-            Picasso.get()
-                .load(it)
-                .fit()
-                .centerCrop()
-                .error(R.mipmap.ic_launcher)
-                .transform(CircleTransform())
-                .into(holder.saintImage, object : Callback {
-                    override fun onSuccess() {
-                        holder.saintImage.imageAlpha = ALPHA_SAINT
-                    }
-
-                    override fun onError(e: Exception?) {
-                        holder.saintImage.setImageResource(R.mipmap.ic_launcher)
-                        holder.saintImage.imageAlpha = ALPHA_DEFAULT
-                    }
-                })
+        if (item.foto != null) {
+            holder.saintImage.imageAlpha = ALPHA_SAINT
+            holder.saintImage.loadIconUrl(item.foto)
+        } else {
+            holder.saintImage.imageAlpha = ALPHA_DEFAULT
+            holder.saintImage.setImageResource(R.mipmap.ic_launcher)
         }
 
         if (item.important == 1) {

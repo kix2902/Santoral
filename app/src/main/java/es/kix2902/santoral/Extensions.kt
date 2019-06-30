@@ -1,6 +1,9 @@
 package es.kix2902.santoral
 
 import android.content.res.Resources
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
+import es.kix2902.santoral.helpers.CircleTransform
 import java.util.*
 
 val Int.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -26,4 +29,14 @@ fun Int.asOrdinal(): String {
         3 -> "rd"
         else -> "th"
     }
+}
+
+fun ImageView.loadIconUrl(url: String) {
+    Picasso.get()
+        .load(url)
+        .fit()
+        .centerCrop()
+        .error(R.mipmap.ic_launcher)
+        .transform(CircleTransform())
+        .into(this)
 }
