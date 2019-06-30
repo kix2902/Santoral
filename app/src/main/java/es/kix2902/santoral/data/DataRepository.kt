@@ -11,6 +11,7 @@ class DataRepository private constructor(context: Context) {
 
     private val networkRepository = NetworkRepository
     private val databaseRepository = DatabaseRepository.getInstance(context)
+    private val preferenceRepository = PreferenceRepository.getInstance(context)
 
     fun getDay(calendar: Calendar, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
         val month = calendar.get(Calendar.MONTH) + 1
@@ -32,5 +33,13 @@ class DataRepository private constructor(context: Context) {
 
     fun getName(name: String, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
         networkRepository.getName(name, onResult, onError)
+    }
+
+    fun showSwipeDateTrace(onResult: (Boolean) -> Unit) {
+        preferenceRepository.showSwipeDateTrace(onResult)
+    }
+
+    fun getThemeMode(onResult: (String) -> Unit) {
+        preferenceRepository.getThemeMode(onResult)
     }
 }
