@@ -14,6 +14,12 @@ class MainPresenter(private val view: MainActivity) {
 
     private var calendar = Calendar.getInstance()
 
+    fun loadSwipeDateTracePreference() {
+        repository.showSwipeDateTrace { value ->
+            view.changeSwipeTraceVisibility(value)
+        }
+    }
+
     fun loadSaints() {
         view.showLoading()
 

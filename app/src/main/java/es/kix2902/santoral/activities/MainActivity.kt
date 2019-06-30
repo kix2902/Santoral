@@ -78,6 +78,12 @@ class MainActivity : AppCompatActivity() {
         presenter.loadSaints()
     }
 
+    override fun onResume() {
+        presenter.loadSwipeDateTracePreference()
+
+        super.onResume()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_activity, menu)
         return true
@@ -140,6 +146,10 @@ class MainActivity : AppCompatActivity() {
         else -> {
             super.onOptionsItemSelected(item)
         }
+    }
+
+    fun changeSwipeTraceVisibility(enabled: Boolean) {
+        gestureView.isGestureVisible = enabled
     }
 
     fun showLoading() {
