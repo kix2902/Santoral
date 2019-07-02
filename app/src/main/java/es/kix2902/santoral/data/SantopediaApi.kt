@@ -11,20 +11,19 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface SantopediaApi {
 
     companion object {
         fun create(): SantopediaApi {
-            val interceptor = HttpLoggingInterceptor()
+            val loggingInterceptor = HttpLoggingInterceptor()
             if (BuildConfig.DEBUG) {
-                interceptor.level = HttpLoggingInterceptor.Level.BODY
+                loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             } else {
-                interceptor.level = HttpLoggingInterceptor.Level.NONE
+                loggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
             }
             val client = OkHttpClient().newBuilder()
-                .addInterceptor(interceptor)
+                .addInterceptor(loggingInterceptor)
                 .build()
 
             val retrofit = Retrofit.Builder()
