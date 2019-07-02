@@ -13,5 +13,5 @@
         android:entryValues="@array/theme_values"
         android:key="theme-mode"
         android:summary="%s"
-        android:title="@string/theme_mode_title" />
+        android:title="@string/night_mode_title" />
 </PreferenceScreen>

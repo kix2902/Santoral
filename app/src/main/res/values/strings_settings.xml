@@ -2,5 +2,5 @@
 <resources>
     <string name="swipe_date_trace_title">Mostrar trazo en cambio de fecha</string>
     <string name="swipe_date_trace_summary">Mostrar trazo al avanzar o retroceder un día</string>
-    <string name="theme_mode_title">Tema oscuro</string>
+    <string name="night_mode_title">Modo noche</string>
 </resources>
