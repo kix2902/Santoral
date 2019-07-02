@@ -3,7 +3,6 @@ package es.kix2902.santoral.data
 import es.kix2902.santoral.R
 import es.kix2902.santoral.data.threads.DefaultExecutorSupplier
 import es.kix2902.santoral.pad
-import java.util.*
 
 object NetworkRepository {
 
@@ -13,23 +12,30 @@ object NetworkRepository {
 
     fun getDay(month: Int, day: Int, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
         executor.forBackgroundTasks().execute {
-            val response = santopediaApi.getDay(month.pad, day.pad).execute()
+            try {
+                val response = santopediaApi.getDay(month.pad, day.pad).execute()
 
-            if (response.isSuccessful) {
-                val list = response.body()!!
-                    .toMutableList()
-                    .sortedBy { it.name }
-                    .sortedByDescending { it.important }
+                if (response.isSuccessful) {
+                    val list = response.body()!!
+                        .toMutableList()
+                        .sortedBy { it.name }
+                        .sortedByDescending { it.important }
 
-                list.forEach { saint ->
-                    saint.feast = "${month.pad}-${day.pad}"
+                    list.forEach { saint ->
+                        saint.feast = "${month.pad}-${day.pad}"
+                    }
+
+                    executor.forMainThreadTasks().execute {
+                        onResult(list)
+                    }
+
+                } else {
+                    executor.forMainThreadTasks().execute {
+                        onError(R.string.error_api)
+                    }
                 }
 
-                executor.forMainThreadTasks().execute {
-                    onResult(list)
-                }
-
-            } else {
+            } catch (exception: Exception) {
                 executor.forMainThreadTasks().execute {
                     onError(R.string.error_api)
                 }
@@ -57,9 +63,15 @@ object NetworkRepository {
                         onError(R.string.error_api)
                     }
                 }
+
             } catch (ex: IllegalStateException) {
                 executor.forMainThreadTasks().execute {
                     onResult(listOf())
+                }
+
+            } catch (exception: Exception) {
+                executor.forMainThreadTasks().execute {
+                    onError(R.string.error_api)
                 }
             }
         }

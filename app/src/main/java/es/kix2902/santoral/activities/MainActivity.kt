@@ -153,6 +153,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showLoading() {
+        adapter.clearItems()
         loadingBar.visibility = View.VISIBLE
     }
 
@@ -166,7 +167,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showMessage(cause: Int) {
-        Toast.makeText(this, cause, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, cause, Toast.LENGTH_LONG).show()
     }
 
     fun showDate(date: String, isToday: Boolean) {
