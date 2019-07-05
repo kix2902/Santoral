@@ -184,10 +184,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun showNameFeastResult(text: String) {
+    fun showNameFeastResult(name: String, month: String, date: String) {
         AlertDialog.Builder(this)
-            .setMessage(text)
-            .setPositiveButton(R.string.close, null)
+            .setMessage(getString(R.string.feast_for_name, name, date, month))
+            .setPositiveButton("Mostrar fecha") { _, _ -> presenter.setDateFeast() }
+            .setNegativeButton(R.string.close, null)
+            .show()
+    }
+
+    fun showNameFeastNoResult(name: String) {
+        AlertDialog.Builder(this)
+            .setMessage(getString(R.string.no_date_for_name, name))
+            .setNegativeButton(R.string.close, null)
             .show()
     }
 

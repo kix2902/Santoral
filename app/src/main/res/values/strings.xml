@@ -7,7 +7,7 @@
     <string name="dialog_search_negative">Cancelar</string>
     <string name="dialog_search_positive">Buscar</string>
     <string name="error_api">Error al descargar los santos desde el servidor</string>
-    <string name="feast_for_name">El santo de %1$s es el %3$s de %2$s</string>
+    <string name="feast_for_name">El santo de %1$s es el %2$s de %3$s</string>
     <string name="photo">foto</string>
     <string name="search_name">Buscar por nombre</string>
     <string name="select_date">Seleccionar fecha</string>
