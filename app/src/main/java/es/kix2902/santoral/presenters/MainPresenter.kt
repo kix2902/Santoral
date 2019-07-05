@@ -22,6 +22,7 @@ class MainPresenter(private val view: MainActivity) {
 
     fun loadSaints() {
         view.showLoading()
+        view.clearList()
 
         val date = DateUtils.formatDateTime(view, calendar.timeInMillis, DateUtils.FORMAT_NO_YEAR)
         view.showDate(date, DateUtils.isToday(calendar.timeInMillis))

@@ -153,7 +153,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showLoading() {
-        adapter.clearItems()
         loadingBar.visibility = View.VISIBLE
     }
 
@@ -161,8 +160,11 @@ class MainActivity : AppCompatActivity() {
         loadingBar.visibility = View.GONE
     }
 
-    fun showSaints(saints: List<Model.Saint>) {
+    fun clearList() {
         adapter.clearItems()
+    }
+
+    fun showSaints(saints: List<Model.Saint>) {
         adapter.addItems(saints)
     }
 
