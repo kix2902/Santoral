@@ -70,7 +70,7 @@ class MainPresenter(private val view: MainActivity) {
         repository.getName(name, onResult = { saints ->
             if (saints.isNotEmpty()) {
                 val saint = saints.first()
-                lastFeast = saint.feast
+                lastFeast = saint.date
 
                 val calendarFeast = lastFeast!!.toCalendar()
 

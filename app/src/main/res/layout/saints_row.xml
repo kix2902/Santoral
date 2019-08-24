@@ -23,13 +23,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/person_name"
+            android:id="@+id/saint_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/saint_name"
+            android:id="@+id/person_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp" />

@@ -9,12 +9,11 @@ object Model {
     @Entity(tableName = "saints")
     data class Saint(
         @PrimaryKey @SerializedName("id") val id: Int,
-        @SerializedName("name") val name: String,
         @SerializedName("fullname") val fullname: String,
-        @SerializedName("url") var url: String,
-        @SerializedName("foto") val foto: String?,
+        @SerializedName("date") var date: String?,
         @SerializedName("important") val important: Int,
-        @SerializedName("feast") var feast: String?
+        @SerializedName("url") var url: String,
+        @SerializedName("names") val names: String
     )
 
     @Entity(primaryKeys = arrayOf("month", "day"))

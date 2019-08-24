@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import es.kix2902.santoral.R
 import es.kix2902.santoral.data.Model
-import es.kix2902.santoral.loadIconUrl
+import es.kix2902.santoral.data.SantopediaApi
+import es.kix2902.santoral.helpers.CircleTransform
 import kotlinx.android.synthetic.main.saints_row.view.*
 
 class SaintsAdapter(
@@ -41,16 +44,8 @@ class SaintsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.personName.text = item.name
+        holder.personName.text = item.names.split(",").toTypedArray().joinToString()
         holder.saintName.text = item.fullname
-
-        if (item.foto != null) {
-            holder.saintImage.imageAlpha = ALPHA_SAINT
-            holder.saintImage.loadIconUrl(item.foto)
-        } else {
-            holder.saintImage.imageAlpha = ALPHA_DEFAULT
-            holder.saintImage.setImageResource(R.mipmap.ic_launcher)
-        }
 
         if (item.important == 1) {
             holder.saintName.setTypeface(null, Typeface.BOLD)
@@ -59,6 +54,22 @@ class SaintsAdapter(
             holder.saintName.setTypeface(null, Typeface.NORMAL)
             holder.personName.setTypeface(null, Typeface.NORMAL)
         }
+
+        holder.saintImage.imageAlpha = ALPHA_DEFAULT
+        Picasso.get()
+            .load("${SantopediaApi.SANTOPEDIA_API_URL}images/${item.id}.jpg")
+            .fit()
+            .centerCrop()
+            .placeholder(R.mipmap.ic_launcher)
+            .transform(CircleTransform())
+            .into(holder.saintImage, object : Callback {
+                override fun onSuccess() {
+                    holder.saintImage.imageAlpha = ALPHA_SAINT
+                }
+
+                override fun onError(e: Exception?) {
+                }
+            })
 
         holder.itemView.setOnClickListener { listener(item) }
     }

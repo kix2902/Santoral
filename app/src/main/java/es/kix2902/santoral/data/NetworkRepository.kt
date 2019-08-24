@@ -10,20 +10,21 @@ object NetworkRepository {
 
     private val santopediaApi by lazy { SantopediaApi.create() }
 
-    fun getDay(month: Int, day: Int, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
+    fun getDay(
+        month: Int,
+        day: Int,
+        onResult: (List<Model.Saint>) -> Unit,
+        onError: (Int) -> Unit
+    ) {
         executor.forBackgroundTasks().execute {
             try {
-                val response = santopediaApi.getDay(month.pad, day.pad).execute()
+                val response = santopediaApi.getDate("${month.pad}-${day.pad}").execute()
 
                 if (response.isSuccessful) {
                     val list = response.body()!!
                         .toMutableList()
-                        .sortedBy { it.name }
+                        .sortedBy { it.fullname }
                         .sortedByDescending { it.important }
-
-                    list.forEach { saint ->
-                        saint.feast = "${month.pad}-${day.pad}"
-                    }
 
                     executor.forMainThreadTasks().execute {
                         onResult(list)
@@ -51,7 +52,7 @@ object NetworkRepository {
                 if (response.isSuccessful) {
                     val list = response.body()!!
                         .toMutableList()
-                        .sortedBy { it.name }
+                        .sortedBy { it.fullname }
                         .sortedByDescending { it.important }
 
                     executor.forMainThreadTasks().execute {
