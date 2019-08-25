@@ -3,7 +3,6 @@ package es.kix2902.santoral.presenters
 import android.text.format.DateUtils
 import es.kix2902.santoral.activities.MainActivity
 import es.kix2902.santoral.data.DataRepository
-import es.kix2902.santoral.toCalendar
 import java.util.*
 
 
@@ -12,8 +11,6 @@ class MainPresenter(private val view: MainActivity) {
     private val repository = DataRepository.getInstance(view)
 
     private var calendar = Calendar.getInstance()
-
-    private var lastFeast: String? = null
 
     fun loadSwipeDateTracePreference() {
         repository.showSwipeDateTrace { value ->
@@ -60,34 +57,19 @@ class MainPresenter(private val view: MainActivity) {
         loadSaints()
     }
 
-    fun setDateFeast() {
-        calendar = lastFeast?.toCalendar()
-        loadSaints()
-    }
-
     fun searchName(name: String) {
         view.showLoading()
         repository.getName(name, onResult = { saints ->
             if (saints.isNotEmpty()) {
-                val saint = saints.first()
-                lastFeast = saint.date
-
-                val calendarFeast = lastFeast!!.toCalendar()
-
-                view.showNameFeastResult(
-                    name,
-                    calendarFeast.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale("es", "ES")),
-                    calendarFeast.get(Calendar.DATE).toString()
-                )
+                view.clearList()
+                view.showSaints(saints, true)
 
             } else {
-                lastFeast = null
                 view.showNameFeastNoResult(name)
             }
             view.hideLoading()
 
         }, onError = { cause ->
-            lastFeast = null
             view.showMessage(cause)
             view.hideLoading()
         })

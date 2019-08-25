@@ -25,7 +25,6 @@ import es.kix2902.santoral.presenters.MainPresenter
 import es.kix2902.santoral.px
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         presenter = MainPresenter(this)
 
-        adapter = SaintsAdapter(ArrayList(), this) { item: Model.Saint ->
+        adapter = SaintsAdapter(this) { item: Model.Saint ->
             val builder = CustomTabsIntent.Builder()
             builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
 
@@ -164,8 +163,8 @@ class MainActivity : AppCompatActivity() {
         adapter.clearItems()
     }
 
-    fun showSaints(saints: List<Model.Saint>) {
-        adapter.addItems(saints)
+    fun showSaints(saints: List<Model.Saint>, isNameResult: Boolean = false) {
+        adapter.addItems(saints, isNameResult)
     }
 
     fun showMessage(cause: Int) {
@@ -182,14 +181,6 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.setHomeButtonEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
-    }
-
-    fun showNameFeastResult(name: String, month: String, date: String) {
-        AlertDialog.Builder(this)
-            .setMessage(getString(R.string.feast_for_name, name, date, month))
-            .setPositiveButton("Mostrar fecha") { _, _ -> presenter.setDateFeast() }
-            .setNegativeButton(R.string.close, null)
-            .show()
     }
 
     fun showNameFeastNoResult(name: String) {

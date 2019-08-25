@@ -1,6 +1,7 @@
 package es.kix2902.santoral
 
 import android.content.res.Resources
+import java.text.DateFormatSymbols
 import java.util.*
 
 val Int.dp: Int get() = (this / Resources.getSystem().displayMetrics.density).toInt()
@@ -8,10 +9,8 @@ val Int.px: Int get() = (this * Resources.getSystem().displayMetrics.density).to
 
 val Int.pad: String get() = this.toString().padStart(2, '0')
 
-fun String.toCalendar(): Calendar {
+fun String.toDisplayText(): String {
     val date = this.split("-")
-    val calendar = Calendar.getInstance()
-    calendar.set(Calendar.MONTH, date[0].toInt() - 1)
-    calendar.set(Calendar.DATE, date[1].toInt())
-    return calendar
+    val month = DateFormatSymbols(Locale("es", "ES")).months[date[0].toInt() - 1]
+    return "${date[1].toInt()} de $month"
 }

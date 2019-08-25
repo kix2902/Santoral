@@ -14,26 +14,38 @@ import es.kix2902.santoral.R
 import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.data.SantopediaApi
 import es.kix2902.santoral.helpers.CircleTransform
+import es.kix2902.santoral.toDisplayText
 import kotlinx.android.synthetic.main.saints_row.view.*
 
 class SaintsAdapter(
-    private val items: MutableList<Model.Saint>,
     private val context: Context,
     val listener: (Model.Saint) -> Unit
 ) : RecyclerView.Adapter<SaintsAdapter.ViewHolder>() {
+
+    private val items = ArrayList<Model.Saint>()
+    private var isNameResult = false
 
     fun clearItems() {
         items.clear()
         notifyDataSetChanged()
     }
 
-    fun addItems(items: List<Model.Saint>) {
+    fun addItems(items: List<Model.Saint>, isNameResult: Boolean) {
         this.items.addAll(items)
+        this.isNameResult = isNameResult
         notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if (isNameResult) {
+            return 1
+        } else {
+            return 0
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,27 +56,34 @@ class SaintsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.personName.text = item.name
-        holder.saintName.text = item.fullname
 
-        if (item.important == 1) {
-            holder.saintName.setTypeface(null, Typeface.BOLD)
-            holder.personName.setTypeface(null, Typeface.BOLD)
-        } else {
-            holder.saintName.setTypeface(null, Typeface.NORMAL)
-            holder.personName.setTypeface(null, Typeface.NORMAL)
+        if (getItemViewType(position) == 0) {
+            holder.title.text = item.name
+            holder.subtitle.text = item.fullname
+
+        } else if (getItemViewType(position) == 1) {
+            holder.title.text = item.fullname
+            holder.subtitle.text = item.date.toDisplayText()
         }
 
-        holder.saintImage.imageAlpha = ALPHA_DEFAULT
+        if (item.important == 1) {
+            holder.title.setTypeface(null, Typeface.BOLD)
+            holder.subtitle.setTypeface(null, Typeface.BOLD)
+        } else {
+            holder.title.setTypeface(null, Typeface.NORMAL)
+            holder.subtitle.setTypeface(null, Typeface.NORMAL)
+        }
+
+        holder.image.imageAlpha = ALPHA_DEFAULT
         Picasso.get()
             .load("${SantopediaApi.SANTOPEDIA_API_URL}images/${item.id}.jpg")
             .fit()
             .centerCrop()
             .placeholder(R.mipmap.ic_launcher)
             .transform(CircleTransform())
-            .into(holder.saintImage, object : Callback {
+            .into(holder.image, object : Callback {
                 override fun onSuccess() {
-                    holder.saintImage.imageAlpha = ALPHA_SAINT
+                    holder.image.imageAlpha = ALPHA_SAINT
                 }
 
                 override fun onError(e: Exception?) {
@@ -75,9 +94,9 @@ class SaintsAdapter(
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val personName: TextView = view.person_name
-        val saintName: TextView = view.saint_name
-        val saintImage: ImageView = view.saint_image
+        val title: TextView = view.row_title
+        val subtitle: TextView = view.row_subtitle
+        val image: ImageView = view.row_image
     }
 
     companion object {
