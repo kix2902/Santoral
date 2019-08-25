@@ -10,6 +10,7 @@ object Model {
     data class Saint(
         @PrimaryKey @SerializedName("id") val id: Int,
         @SerializedName("fullname") val fullname: String,
+        @SerializedName("name") val name: String,
         @SerializedName("date") var date: String?,
         @SerializedName("important") val important: Int,
         @SerializedName("url") var url: String,

@@ -44,7 +44,7 @@ class SaintsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        holder.personName.text = item.names.split(",").toTypedArray().joinToString()
+        holder.personName.text = item.name
         holder.saintName.text = item.fullname
 
         if (item.important == 1) {

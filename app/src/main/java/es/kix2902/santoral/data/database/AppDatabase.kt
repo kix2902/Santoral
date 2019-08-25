@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.helpers.SingletonHolder
 
-@Database(entities = arrayOf(Model.Saint::class, Model.QueryInfo::class), version = 4)
+@Database(entities = arrayOf(Model.Saint::class, Model.QueryInfo::class), version = 5)
 @TypeConverters(DateTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun saintsDao(): SaintsDao
