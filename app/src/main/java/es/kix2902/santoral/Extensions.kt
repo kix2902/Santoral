@@ -11,6 +11,6 @@ val Int.pad: String get() = this.toString().padStart(2, '0')
 
 fun String.toDisplayText(): String {
     val date = this.split("-")
-    val month = DateFormatSymbols(Locale("es", "ES")).months[date[0].toInt() - 1]
+    val month = DateFormatSymbols().months[date[0].toInt() - 1]
     return "${date[1].toInt()} de $month"
 }

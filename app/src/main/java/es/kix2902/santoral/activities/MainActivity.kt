@@ -35,9 +35,10 @@ class MainActivity : AppCompatActivity() {
     private val gestureLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Locale.setDefault(Locale("es", "ES"))
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
         presenter = MainPresenter(this)
