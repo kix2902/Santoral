@@ -11,7 +11,7 @@ object Model {
         @PrimaryKey @SerializedName("id") val id: Int,
         @SerializedName("fullname") val fullname: String,
         @SerializedName("name") val name: String,
-        @SerializedName("date") var date: String?,
+        @SerializedName("date") var date: String,
         @SerializedName("important") val important: Int,
         @SerializedName("url") var url: String,
         @SerializedName("names") val names: String
