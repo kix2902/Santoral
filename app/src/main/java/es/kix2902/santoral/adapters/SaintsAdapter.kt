@@ -40,14 +40,6 @@ class SaintsAdapter(
         return items.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        if (isNameResult) {
-            return 1
-        } else {
-            return 0
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(context).inflate(R.layout.saints_row, parent, false)
@@ -57,13 +49,13 @@ class SaintsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        if (getItemViewType(position) == 0) {
-            holder.title.text = item.name
-            holder.subtitle.text = item.fullname
-
-        } else if (getItemViewType(position) == 1) {
+        if (isNameResult) {
             holder.title.text = item.fullname
             holder.subtitle.text = item.date.toDisplayText()
+
+        } else {
+            holder.title.text = item.name
+            holder.subtitle.text = item.fullname
         }
 
         if (item.important == 1) {
@@ -92,6 +84,8 @@ class SaintsAdapter(
 
         holder.itemView.setOnClickListener { listener(item) }
     }
+
+    fun isShowingNameResult() = isNameResult
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.row_title

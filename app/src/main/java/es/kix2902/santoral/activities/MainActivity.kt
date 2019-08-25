@@ -2,6 +2,7 @@ package es.kix2902.santoral.activities
 
 import android.content.Intent
 import android.gesture.GestureLibraries
+import android.gesture.GestureOverlayView
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -54,19 +55,6 @@ class MainActivity : AppCompatActivity() {
         recyclerSaints.adapter = adapter
 
         gestureLibrary.load()
-        gestureView.addOnGesturePerformedListener { _, gesture ->
-            val predictions = gestureLibrary.recognize(gesture)
-
-            if (predictions.size > 0 && predictions[0].score > 1.0) {
-                val result = predictions[0].name
-
-                if ("left".equals(result, ignoreCase = true)) {
-                    presenter.nextDay()
-                } else if ("right".equals(result, ignoreCase = true)) {
-                    presenter.previousDay()
-                }
-            }
-        }
 
         MobileAds.initialize(this, getString(R.string.admob_app_id))
 
@@ -79,7 +67,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        presenter.loadSwipeDateTracePreference()
+        if (!adapter.isShowingNameResult()) {
+            presenter.loadSwipeDateTracePreference()
+        }
 
         super.onResume()
     }
@@ -164,8 +154,22 @@ class MainActivity : AppCompatActivity() {
         adapter.clearItems()
     }
 
-    fun showSaints(saints: List<Model.Saint>, isNameResult: Boolean = false) {
-        adapter.addItems(saints, isNameResult)
+    fun showSaints(saints: List<Model.Saint>, name: String? = null) {
+        adapter.addItems(saints, name != null)
+
+        if (name != null) {
+            supportActionBar?.subtitle = name
+            supportActionBar?.setHomeButtonEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+            gestureView.removeAllOnGesturePerformedListeners()
+            changeSwipeTraceVisibility(false)
+
+        } else {
+            gestureView.removeAllOnGesturePerformedListeners()
+            gestureView.addOnGesturePerformedListener(gestureListener)
+            presenter.loadSwipeDateTracePreference()
+        }
     }
 
     fun showMessage(cause: Int) {
@@ -191,4 +195,17 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    val gestureListener = GestureOverlayView.OnGesturePerformedListener { _, gesture ->
+        val predictions = gestureLibrary.recognize(gesture)
+
+        if (predictions.size > 0 && predictions[0].score > 1.0) {
+            val result = predictions[0].name
+
+            if ("left".equals(result, ignoreCase = true)) {
+                presenter.nextDay()
+            } else if ("right".equals(result, ignoreCase = true)) {
+                presenter.previousDay()
+            }
+        }
+    }
 }

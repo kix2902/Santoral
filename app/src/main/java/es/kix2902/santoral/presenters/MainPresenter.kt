@@ -62,7 +62,7 @@ class MainPresenter(private val view: MainActivity) {
         repository.getName(name, onResult = { saints ->
             if (saints.isNotEmpty()) {
                 view.clearList()
-                view.showSaints(saints, true)
+                view.showSaints(saints, name)
 
             } else {
                 view.showNameFeastNoResult(name)
