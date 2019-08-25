@@ -23,7 +23,7 @@ object NetworkRepository {
                 if (response.isSuccessful) {
                     val list = response.body()!!
                         .toMutableList()
-                        .sortedBy { it.fullname }
+                        .sortedBy { it.name }
                         .sortedByDescending { it.important }
 
                     executor.forMainThreadTasks().execute {
@@ -52,7 +52,7 @@ object NetworkRepository {
                 if (response.isSuccessful) {
                     val list = response.body()!!
                         .toMutableList()
-                        .sortedBy { it.fullname }
+                        .sortedBy { it.name }
                         .sortedByDescending { it.important }
 
                     executor.forMainThreadTasks().execute {
