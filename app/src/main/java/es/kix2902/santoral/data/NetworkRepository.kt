@@ -1,12 +1,11 @@
 package es.kix2902.santoral.data
 
 import es.kix2902.santoral.R
-import es.kix2902.santoral.data.threads.DefaultExecutorSupplier
 import es.kix2902.santoral.pad
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 object NetworkRepository {
-
-    private val executor: DefaultExecutorSupplier = DefaultExecutorSupplier
 
     private val santopediaApi by lazy { SantopediaApi.create() }
 
@@ -16,7 +15,7 @@ object NetworkRepository {
         onResult: (List<Model.Saint>) -> Unit,
         onError: (Int) -> Unit
     ) {
-        executor.forBackgroundTasks().execute {
+        doAsync {
             try {
                 val response = santopediaApi.getDate("${month.pad}-${day.pad}").execute()
 
@@ -26,26 +25,20 @@ object NetworkRepository {
                         .sortedBy { it.name }
                         .sortedByDescending { it.important }
 
-                    executor.forMainThreadTasks().execute {
-                        onResult(list)
-                    }
+                    uiThread { onResult(list) }
 
                 } else {
-                    executor.forMainThreadTasks().execute {
-                        onError(R.string.error_api)
-                    }
+                    uiThread { onError(R.string.error_api) }
                 }
 
             } catch (exception: Exception) {
-                executor.forMainThreadTasks().execute {
-                    onError(R.string.error_api)
-                }
+                uiThread { onError(R.string.error_api) }
             }
         }
     }
 
     fun getName(name: String, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
-        executor.forBackgroundTasks().execute {
+        doAsync {
             try {
                 val response = santopediaApi.getName(name).execute()
 
@@ -55,25 +48,17 @@ object NetworkRepository {
                         .sortedBy { it.name }
                         .sortedByDescending { it.important }
 
-                    executor.forMainThreadTasks().execute {
-                        onResult(list)
-                    }
+                    uiThread { onResult(list) }
 
                 } else {
-                    executor.forMainThreadTasks().execute {
-                        onError(R.string.error_api)
-                    }
+                    uiThread { onError(R.string.error_api) }
                 }
 
             } catch (ex: IllegalStateException) {
-                executor.forMainThreadTasks().execute {
-                    onResult(listOf())
-                }
+                uiThread { onResult(listOf()) }
 
             } catch (exception: Exception) {
-                executor.forMainThreadTasks().execute {
-                    onError(R.string.error_api)
-                }
+                uiThread { onError(R.string.error_api) }
             }
         }
     }
