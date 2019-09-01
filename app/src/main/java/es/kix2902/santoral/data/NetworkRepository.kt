@@ -45,7 +45,7 @@ object NetworkRepository {
                 if (response.isSuccessful) {
                     val list = response.body()!!
                         .toMutableList()
-                        .sortedBy { it.name }
+                        .sortedBy { it.date }
                         .sortedByDescending { it.important }
 
                     uiThread { onResult(list) }
