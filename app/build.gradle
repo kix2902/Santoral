@@ -6,11 +6,11 @@ apply plugin: 'io.fabric'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "es.kix2902.santoral"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 58
         versionName "5.0 beta 8"
         resConfigs "es"
