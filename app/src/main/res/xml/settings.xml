@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="swipe-date-trace"
-        android:summary="@string/swipe_date_trace_summary"
-        android:title="@string/swipe_date_trace_title" />
+    <PreferenceCategory app:title="@string/category_general">
+        <ListPreference
+            android:defaultValue="@string/theme_mode_default"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:key="theme-mode"
+            android:summary="%s"
+            android:title="@string/night_mode_title" />
 
-    <ListPreference
-        android:defaultValue="@string/theme_mode_default"
-        android:entries="@array/theme_entries"
-        android:entryValues="@array/theme_values"
-        android:key="theme-mode"
-        android:summary="%s"
-        android:title="@string/night_mode_title" />
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="swipe-date-trace"
+            android:summary="@string/swipe_date_trace_summary"
+            android:title="@string/swipe_date_trace_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/category_about">
+        <Preference
+            app:persistent="false"
+            app:summary="@string/app_version"
+            app:title="@string/app_name">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://play.google.com/store/apps/details?id=com.redinput.dualmaps" />
+        </Preference>
+
+        <Preference
+            app:persistent="false"
+            app:title="@string/preference_more_apps">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://play.google.com/store/apps/developer?id=kix2902" />
+        </Preference>
+    </PreferenceCategory>
+
 </PreferenceScreen>
