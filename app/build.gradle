@@ -4,8 +4,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
-final VERSION_CODE = 59
-final VERSION_NAME = '5.0'
+final VERSION_CODE = 60
+final VERSION_NAME = '5.0.1'
 
 android {
     compileSdkVersion 29
