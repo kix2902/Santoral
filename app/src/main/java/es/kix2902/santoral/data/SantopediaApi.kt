@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface SantopediaApi {
 
     companion object {
-        const val SANTOPEDIA_API_URL = "https://santoral.kix2902.es/api/"
+        const val SANTOPEDIA_API_URL = "https://api.santoral.app/"
 
         fun create(): SantopediaApi {
             val loggingInterceptor = HttpLoggingInterceptor()
