@@ -1,5 +1,6 @@
 package es.kix2902.santoral.activities
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.gesture.GestureLibraries
 import android.gesture.GestureOverlayView
@@ -51,7 +52,11 @@ class MainActivity : AppCompatActivity() {
             val builder = CustomTabsIntent.Builder()
             builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
 
-            builder.build().launchUrl(this, Uri.parse(item.url))
+            try {
+                builder.build().launchUrl(this, Uri.parse(item.url))
+            } catch (ex: ActivityNotFoundException) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.url)))
+            }
         }
 
         binding.recyclerSaints.addItemDecoration(VerticalDivider(this))
