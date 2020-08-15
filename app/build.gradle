@@ -4,15 +4,19 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
+final VERSION_CODE = 59
+final VERSION_NAME = '5.0'
+
 android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "es.kix2902.santoral"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 59
-        versionName "5.0"
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
         resConfigs "es"
+        resValue "string", "app_version", VERSION_NAME + " [" + VERSION_CODE + "]"
         kapt {
             arguments {
                 arg("room.schemaLocation", "$projectDir/schemas")
