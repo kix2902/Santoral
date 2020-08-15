@@ -21,15 +21,17 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import es.kix2902.santoral.R
 import es.kix2902.santoral.adapters.SaintsAdapter
 import es.kix2902.santoral.data.Model
+import es.kix2902.santoral.databinding.ActivityMainBinding
 import es.kix2902.santoral.helpers.VerticalDivider
 import es.kix2902.santoral.presenters.MainPresenter
 import es.kix2902.santoral.px
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var presenter: MainPresenter
+
+    private lateinit var binding: ActivityMainBinding
 
     private lateinit var adapter: SaintsAdapter
 
@@ -39,8 +41,9 @@ class MainActivity : AppCompatActivity() {
         Locale.setDefault(Locale("es", "ES"))
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         presenter = MainPresenter(this)
 
@@ -51,8 +54,8 @@ class MainActivity : AppCompatActivity() {
             builder.build().launchUrl(this, Uri.parse(item.url))
         }
 
-        recyclerSaints.addItemDecoration(VerticalDivider(this))
-        recyclerSaints.adapter = adapter
+        binding.recyclerSaints.addItemDecoration(VerticalDivider(this))
+        binding.recyclerSaints.adapter = adapter
 
         gestureLibrary.load()
 
@@ -61,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder()
             .addTestDevice(getString(R.string.test_device))
             .build()
-        adView.loadAd(adRequest)
+        binding.adView.loadAd(adRequest)
 
         presenter.loadSaints()
     }
@@ -139,15 +142,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeSwipeTraceVisibility(enabled: Boolean) {
-        gestureView.isGestureVisible = enabled
+        binding.gestureView.isGestureVisible = enabled
     }
 
     fun showLoading() {
-        loadingBar.visibility = View.VISIBLE
+        binding.loadingBar.visibility = View.VISIBLE
     }
 
     fun hideLoading() {
-        loadingBar.visibility = View.GONE
+        binding.loadingBar.visibility = View.GONE
     }
 
     fun clearList() {
@@ -162,12 +165,12 @@ class MainActivity : AppCompatActivity() {
             supportActionBar?.setHomeButtonEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            gestureView.removeAllOnGesturePerformedListeners()
+            binding.gestureView.removeAllOnGesturePerformedListeners()
             changeSwipeTraceVisibility(false)
 
         } else {
-            gestureView.removeAllOnGesturePerformedListeners()
-            gestureView.addOnGesturePerformedListener(gestureListener)
+            binding.gestureView.removeAllOnGesturePerformedListeners()
+            binding.gestureView.addOnGesturePerformedListener(gestureListener)
             presenter.loadSwipeDateTracePreference()
         }
     }

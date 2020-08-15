@@ -5,17 +5,15 @@ import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import es.kix2902.santoral.R
 import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.data.SantopediaApi
+import es.kix2902.santoral.databinding.SaintsRowBinding
 import es.kix2902.santoral.helpers.CircleTransform
 import es.kix2902.santoral.toDisplayText
-import kotlinx.android.synthetic.main.saints_row.view.*
 
 class SaintsAdapter(
     private val context: Context,
@@ -40,58 +38,55 @@ class SaintsAdapter(
         return items.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.saints_row, parent, false)
-        )
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        SaintsRowBinding.inflate(LayoutInflater.from(context), parent, false).root
+    )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        SaintsRowBinding.bind(holder.itemView).apply {
 
-        if (isNameResult) {
-            holder.title.text = item.fullname
-            holder.subtitle.text = item.date.toDisplayText()
+            val item = items[position]
 
-        } else {
-            holder.title.text = item.name
-            holder.subtitle.text = item.fullname
+            if (isNameResult) {
+                rowTitle.text = item.fullname
+                rowSubtitle.text = item.date.toDisplayText()
+
+            } else {
+                rowTitle.text = item.name
+                rowSubtitle.text = item.fullname
+            }
+
+            if (item.important == 1) {
+                rowTitle.setTypeface(null, Typeface.BOLD)
+                rowSubtitle.setTypeface(null, Typeface.BOLD)
+            } else {
+                rowTitle.setTypeface(null, Typeface.NORMAL)
+                rowSubtitle.setTypeface(null, Typeface.NORMAL)
+            }
+
+            rowImage.imageAlpha = ALPHA_DEFAULT
+            Picasso.get()
+                .load("${SantopediaApi.SANTOPEDIA_API_URL}images/${item.id}.jpg")
+                .fit()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .transform(CircleTransform())
+                .into(rowImage, object : Callback {
+                    override fun onSuccess() {
+                        rowImage.imageAlpha = ALPHA_SAINT
+                    }
+
+                    override fun onError(e: Exception?) {
+                    }
+                })
+
+            holder.itemView.setOnClickListener { listener(item) }
         }
-
-        if (item.important == 1) {
-            holder.title.setTypeface(null, Typeface.BOLD)
-            holder.subtitle.setTypeface(null, Typeface.BOLD)
-        } else {
-            holder.title.setTypeface(null, Typeface.NORMAL)
-            holder.subtitle.setTypeface(null, Typeface.NORMAL)
-        }
-
-        holder.image.imageAlpha = ALPHA_DEFAULT
-        Picasso.get()
-            .load("${SantopediaApi.SANTOPEDIA_API_URL}images/${item.id}.jpg")
-            .fit()
-            .centerCrop()
-            .placeholder(R.mipmap.ic_launcher)
-            .transform(CircleTransform())
-            .into(holder.image, object : Callback {
-                override fun onSuccess() {
-                    holder.image.imageAlpha = ALPHA_SAINT
-                }
-
-                override fun onError(e: Exception?) {
-                }
-            })
-
-        holder.itemView.setOnClickListener { listener(item) }
     }
 
     fun isShowingNameResult() = isNameResult
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.row_title
-        val subtitle: TextView = view.row_subtitle
-        val image: ImageView = view.row_image
-    }
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     companion object {
         const val ALPHA_SAINT = 255
