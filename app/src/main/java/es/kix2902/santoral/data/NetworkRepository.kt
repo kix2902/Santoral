@@ -2,8 +2,10 @@ package es.kix2902.santoral.data
 
 import es.kix2902.santoral.R
 import es.kix2902.santoral.pad
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 object NetworkRepository {
 
@@ -15,7 +17,7 @@ object NetworkRepository {
         onResult: (List<Model.Saint>) -> Unit,
         onError: (Int) -> Unit
     ) {
-        doAsync {
+        GlobalScope.launch(Dispatchers.IO) {
             try {
                 val response = santopediaApi.getDate("${month.pad}-${day.pad}").execute()
 
@@ -25,20 +27,20 @@ object NetworkRepository {
                         .sortedBy { it.name }
                         .sortedByDescending { it.important }
 
-                    uiThread { onResult(list) }
+                    withContext(Dispatchers.Main) { onResult(list) }
 
                 } else {
-                    uiThread { onError(R.string.error_api) }
+                    withContext(Dispatchers.Main) { onError(R.string.error_api) }
                 }
 
             } catch (exception: Exception) {
-                uiThread { onError(R.string.error_api) }
+                withContext(Dispatchers.Main) { onError(R.string.error_api) }
             }
         }
     }
 
     fun getName(name: String, onResult: (List<Model.Saint>) -> Unit, onError: (Int) -> Unit) {
-        doAsync {
+        GlobalScope.launch(Dispatchers.IO) {
             try {
                 val response = santopediaApi.getName(name).execute()
 
@@ -48,17 +50,17 @@ object NetworkRepository {
                         .sortedBy { it.date }
                         .sortedByDescending { it.important }
 
-                    uiThread { onResult(list) }
+                    withContext(Dispatchers.Main) { onResult(list) }
 
                 } else {
-                    uiThread { onError(R.string.error_api) }
+                    withContext(Dispatchers.Main) { onError(R.string.error_api) }
                 }
 
             } catch (ex: IllegalStateException) {
-                uiThread { onResult(listOf()) }
+                withContext(Dispatchers.Main) { onResult(listOf()) }
 
             } catch (exception: Exception) {
-                uiThread { onError(R.string.error_api) }
+                withContext(Dispatchers.Main) { onError(R.string.error_api) }
             }
         }
     }
