@@ -64,11 +64,8 @@ class MainActivity : AppCompatActivity() {
 
         gestureLibrary.load()
 
-        MobileAds.initialize(this, getString(R.string.admob_app_id))
-
-        val adRequest = AdRequest.Builder()
-            .addTestDevice(getString(R.string.test_device))
-            .build()
+        MobileAds.initialize(this)
+        val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
         presenter.loadSaints()
@@ -109,8 +106,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         R.id.search_name -> {
-            val container = LinearLayout(this@MainActivity);
-            container.orientation = LinearLayout.VERTICAL;
+            val container = LinearLayout(this@MainActivity)
+            container.orientation = LinearLayout.VERTICAL
 
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -123,7 +120,7 @@ class MainActivity : AppCompatActivity() {
             input.setLines(1)
             input.maxLines = 1
 
-            container.addView(input, params);
+            container.addView(input, params)
 
             AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_search_name_title)
