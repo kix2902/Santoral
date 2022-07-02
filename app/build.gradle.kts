@@ -67,10 +67,13 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.picasso:picasso:2.71828")
 
-    implementation("com.google.firebase:firebase-core:21.0.0")
+    implementation(platform("com.google.firebase:firebase-bom:30.2.0"))
+    implementation("com.google.firebase:firebase-core")
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-appcheck-playintegrity")
+
     implementation("com.google.firebase:firebase-ads:21.0.0")
-    implementation("com.google.firebase:firebase-crashlytics:18.2.11")
-    implementation("com.google.firebase:firebase-analytics:21.0.0")
 
     implementation("me.zhanghai.android.materialprogressbar:library:1.6.1")
     implementation("com.wdullaer:materialdatetimepicker:4.2.3")
