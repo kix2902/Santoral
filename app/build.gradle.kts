@@ -7,16 +7,16 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = Config.compileSdk
     defaultConfig {
-        applicationId = "es.kix2902.santoral"
-        minSdk = 23
-        targetSdk = 32
-        versionCode = 60
-        versionName = "5.0.1"
+        applicationId = Config.appId
+        minSdk = Config.minSdk
+        targetSdk = Config.targetSdk
+        versionCode = Config.versionCode
+        versionName = Config.versionName
 
-        resConfigs("es")
-        resValue("string", "app_version", "5.0.1 [60]")
+        resourceConfigurations.addAll(listOf("es"))
+        resValue("string", "app_version", "${Config.versionName} [${Config.versionCode}]")
 
         kapt.arguments {
             arg("room.schemaLocation", "$projectDir/schemas")
@@ -43,16 +43,15 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.3")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Version.kotlin}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Version.coroutines}")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Version.coroutines}")
 
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.4.2")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("androidx.browser:browser:1.4.0")
-    implementation("androidx.preference:preference:1.2.0")
     implementation("androidx.preference:preference-ktx:1.2.0")
 
     implementation("com.google.android.material:material:1.6.1")
