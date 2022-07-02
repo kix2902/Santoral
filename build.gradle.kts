@@ -1,23 +1,9 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:7.2.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Version.kotlin}")
-        classpath("com.google.gms:google-services:4.3.13")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.1")
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+plugins {
+    id("com.android.application") version "7.2.1" apply false
+    id("com.android.library") version "7.2.1" apply false
+    id("org.jetbrains.kotlin.android") version Version.kotlin apply false
+    id("com.google.gms.google-services") version "4.3.13" apply false
+    id("com.google.firebase.crashlytics") version "2.9.1" apply false
 }
 
 tasks.register("clean", Delete::class) {
