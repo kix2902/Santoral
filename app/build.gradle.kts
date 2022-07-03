@@ -46,7 +46,7 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Version.compose
+        kotlinCompilerExtensionVersion = Version.composeCompiler
     }
 }
 
@@ -65,8 +65,8 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.2.0")
 
     implementation("androidx.activity:activity-compose:1.5.0")
-    implementation("androidx.compose.material:material:1.1.1")
-    implementation("androidx.compose.ui:ui-tooling:1.1.1")
+    implementation("androidx.compose.material:material:${Version.compose}")
+    implementation("androidx.compose.ui:ui-tooling:${Version.compose}")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0")
 
     implementation("com.google.android.material:material:1.6.1")
