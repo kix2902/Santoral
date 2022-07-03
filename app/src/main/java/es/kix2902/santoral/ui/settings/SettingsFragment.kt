@@ -1,4 +1,4 @@
-package es.kix2902.santoral.fragments
+package es.kix2902.santoral.ui.settings
 
 import android.content.SharedPreferences
 import android.os.Bundle

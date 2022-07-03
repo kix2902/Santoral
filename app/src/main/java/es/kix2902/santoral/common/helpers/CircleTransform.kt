@@ -1,4 +1,4 @@
-package es.kix2902.santoral.helpers
+package es.kix2902.santoral.common.helpers
 
 import android.graphics.Bitmap
 import android.graphics.BitmapShader

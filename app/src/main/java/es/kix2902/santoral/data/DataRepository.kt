@@ -1,7 +1,7 @@
 package es.kix2902.santoral.data
 
 import android.content.Context
-import es.kix2902.santoral.helpers.SingletonHolder
+import es.kix2902.santoral.common.helpers.SingletonHolder
 import java.util.*
 import java.util.concurrent.TimeUnit
 

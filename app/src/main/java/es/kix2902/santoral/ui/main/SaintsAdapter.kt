@@ -1,4 +1,4 @@
-package es.kix2902.santoral.adapters
+package es.kix2902.santoral.ui.main
 
 import android.content.Context
 import android.graphics.Typeface
@@ -12,7 +12,7 @@ import es.kix2902.santoral.R
 import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.data.SantopediaApi
 import es.kix2902.santoral.databinding.SaintsRowBinding
-import es.kix2902.santoral.helpers.CircleTransform
+import es.kix2902.santoral.common.helpers.CircleTransform
 import es.kix2902.santoral.toDisplayText
 
 class SaintsAdapter(

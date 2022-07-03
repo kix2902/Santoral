@@ -1,7 +1,6 @@
-package es.kix2902.santoral.presenters
+package es.kix2902.santoral.ui.main
 
 import android.text.format.DateUtils
-import es.kix2902.santoral.activities.MainActivity
 import es.kix2902.santoral.data.DataRepository
 import java.util.*
 

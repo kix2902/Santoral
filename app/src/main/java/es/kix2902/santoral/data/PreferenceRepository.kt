@@ -3,7 +3,7 @@ package es.kix2902.santoral.data
 import android.content.Context
 import androidx.preference.PreferenceManager
 import es.kix2902.santoral.R
-import es.kix2902.santoral.helpers.SingletonHolder
+import es.kix2902.santoral.common.helpers.SingletonHolder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

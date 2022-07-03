@@ -1,11 +1,10 @@
-package es.kix2902.santoral.activities
+package es.kix2902.santoral.ui.settings
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import es.kix2902.santoral.R
 import es.kix2902.santoral.databinding.ActivitySettingsBinding
-import es.kix2902.santoral.fragments.SettingsFragment
 
 class SettingsActivity : AppCompatActivity() {
 

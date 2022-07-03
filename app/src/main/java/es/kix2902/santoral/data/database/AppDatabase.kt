@@ -5,10 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import es.kix2902.santoral.data.Model
-import es.kix2902.santoral.helpers.SingletonHolder
+import es.kix2902.santoral.common.helpers.SingletonHolder
 
 @Database(entities = arrayOf(Model.Saint::class, Model.QueryInfo::class), version = 6)
 @TypeConverters(DateTypeConverter::class)

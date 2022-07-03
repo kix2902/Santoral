@@ -1,4 +1,4 @@
-package es.kix2902.santoral.helpers
+package es.kix2902.santoral.common.helpers
 
 open class SingletonHolder<out T : Any, in A>(creator: (A) -> T) {
     private var creator: ((A) -> T)? = creator

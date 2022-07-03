@@ -1,4 +1,4 @@
-package es.kix2902.santoral.activities
+package es.kix2902.santoral.ui.main
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -20,11 +20,10 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import es.kix2902.santoral.R
-import es.kix2902.santoral.adapters.SaintsAdapter
+import es.kix2902.santoral.ui.settings.SettingsActivity
 import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.databinding.ActivityMainBinding
-import es.kix2902.santoral.helpers.VerticalDivider
-import es.kix2902.santoral.presenters.MainPresenter
+import es.kix2902.santoral.common.helpers.VerticalDivider
 import es.kix2902.santoral.px
 import java.util.*
 
