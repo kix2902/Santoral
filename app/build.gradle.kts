@@ -62,17 +62,17 @@ dependencies {
 
     implementation("com.google.android.material:material:1.6.1")
 
-    implementation("androidx.room:room-runtime:2.4.2")
-    implementation("androidx.room:room-ktx:2.4.2")
-    kapt("androidx.room:room-compiler:2.4.2")
+    implementation("androidx.room:room-runtime:${Version.room}")
+    implementation("androidx.room:room-ktx:${Version.room}")
+    kapt("androidx.room:room-compiler:${Version.room}")
 
-    implementation("com.squareup.okhttp3:okhttp:4.8.1")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.8.1")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.squareup.okhttp3:okhttp:${Version.okhttp}")
+    implementation("com.squareup.okhttp3:logging-interceptor:${Version.okhttp}")
+    implementation("com.squareup.retrofit2:retrofit:${Version.retrofit}")
+    implementation("com.squareup.retrofit2:converter-gson:${Version.retrofit}")
+    implementation("com.squareup.picasso:picasso:${Version.picasso}")
 
-    implementation(platform("com.google.firebase:firebase-bom:30.2.0"))
+    implementation(platform("com.google.firebase:firebase-bom:${Version.firebase}"))
     implementation("com.google.firebase:firebase-core")
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
