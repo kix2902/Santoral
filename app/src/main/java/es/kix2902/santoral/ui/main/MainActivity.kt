@@ -20,11 +20,11 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import es.kix2902.santoral.R
-import es.kix2902.santoral.ui.settings.SettingsActivity
+import es.kix2902.santoral.common.helpers.VerticalDivider
 import es.kix2902.santoral.data.Model
 import es.kix2902.santoral.databinding.ActivityMainBinding
-import es.kix2902.santoral.common.helpers.VerticalDivider
 import es.kix2902.santoral.px
+import es.kix2902.santoral.ui.settings.SettingsActivity
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +40,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Locale.setDefault(Locale("es", "ES"))
         super.onCreate(savedInstanceState)
+
+        /*
+
+        setContent {
+            SantoralTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    Greeting("Android")
+                }
+            }
+        }
+
+         */
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
