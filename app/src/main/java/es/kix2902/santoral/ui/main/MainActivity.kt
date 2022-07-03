@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_activity, menu)
         return true
     }
