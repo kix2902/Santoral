@@ -3,7 +3,7 @@ object Version {
 
     const val kotlin = "1.7.0"
     const val composeCompiler = "1.2.0"
-    const val compose = "1.2.0"
+    const val compose = "1.1.1"
     const val coroutines = "1.6.3"
     const val room = "2.4.2"
 
